@@ -1,0 +1,2 @@
+# seminarska
+za INFm
