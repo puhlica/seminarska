@@ -1,0 +1,88 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{graphicx}
+\usepackage{authblk}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage[slovene]{babel}
+\usepackage{hyperref}
+\usepackage{listings}
+
+\renewcommand{\contentsname}{Kazalo}
+\addto\captionslovene{\renewcommand{\figurename}{Slika}}
+
+\title{Linux spletni strežnik}
+\author{REDACTED}
+\date{Februar 2023}
+\affil{Vegova Ljubljana}
+
+\begin{document}
+
+\begin{titlepage}
+	\begin{center}
+		\includegraphics[width=\textwidth]{slike/logotip_vegova_leze_brezokvirja.png}\par\vspace{6cm}
+		{\scshape\huge Linux spletni strežnik}\par
+		\large{Seminarska naloga pri informatiki}
+		\vfill
+		Mentor: Aleksander Lazarević \hfill Avtor: Maj Srčnik\par\vspace{1cm}
+		Ljubljana, Februar 2023
+	\end{center}
+\end{titlepage}
+\thispagestyle{empty}
+\pagebreak
+\tableofcontents
+\pagebreak
+\thispagestyle{empty}
+\section*{Povzetek}
+\section*{Abstract}
+\pagebreak
+\section{Uvod}
+V modernih korporativnih medmrežjih je internetna samostojnost redek in pozabljen pojav, zato me neodvisne spletne strani vedno znova razveselijo.
+V upanju da bo mogoče kdaj tudi moj skromni doprinos koga kratkočasil, sem sem se odločil postaviti lastni, neodvisni spletni strežnik.
+
+Gostiti strežnik v lastnem domu je skladno z mojimi ideološkimi standardi, hkrati pa je odlična priložnost za poglobitev znanja na področju, ki je v učnem programu le površno obravnavan.
+
+\section{Strojna oprema}
+Ideja za lasten strežnik se mi je utrnila, ko mi je bil podarjen zdaj že 11 let star Raspberry Pi model B mikroračunalnik.
+Na tej za dlan veliki ploščici so, od specifikacij ki me znaimajo, 700MHz enojedrni ARM procesor, 512GB RAM pomnilnika in 2 USB 2.0 priključka.
+Razvidno je da Raspberry Pi ni konkurenten celo zelo ugodnim račualnikom istega namenskega razreda.
+Kljub temu nisem imel na izbiro nič drugega in z zelo majno predvideno porabo (3.5W) je za trenutno energetsko krizo kar primeren.
+
+Sistem je naložen na majhno microSD kartico, za katero upam da jo neprestani cikli branja in pisanja ne pokončajo, vsaj do konca pisanja seminarske naloge.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{slike/raspberry.jpg}
+	\caption{Raspberry Pi model B}
+	\label{fig:raspberry}
+\end{figure}
+
+\section{Programska oprema}
+\subsection{Operacijski sistem}
+Raspbian OS je GNU/Linux operacijski sistem. Izbral sem ga, ker je zasnova na Debianu in doumevno optimiziran za Raspberry Pi računalnike.
+GNU/Linux je zanesljiv, robusten in ekstensibilen.
+Ta distribucija pa naj bi bila še posebaj nezahtevna za računska in pomnilniška sredstva\cite{raspbian}, zato je ustrezna izbira za moje projekt.
+
+Ker strežnik ne bo nikoli priključen v ekran, za grafični namestitveni program sistema (installer), pa je ta vseeno potreben, sem ga začasno priklopil v hdmi priključek na televiziji in tako izvedel namestitev.
+
+Debian vsebuje apt upravitelj paketov, zato nalaganje in nameščanje potrebnih programov ne bo velik problem.
+V pomoč sta prav tako že namščena skrbnik prikritih procesov (daemon) systemd in strežnik za oddlajen dostop po protokolu SSH. 
+
+\subsection{Spletni strežnik}
+Po prijavi sem posodobil strežnik z \verb|sudo apt update && sudo apt upgrade| in namestil Nginx z \verb|sudo apt install nginx|.
+Nginx je zmogljiv http strežnik, ki sicer ponuja še mnogo več, a jaz ga bom uporabljal le za http strežnik.\cite{nginx}
+
+Ker nevem če bo na istem strežniku v prihodnsoti še kakšna stran, pišem konfiguracijo v \verb|/etc/nginx/sites-available/srcnik|.
+Ker bi celotna vsebina nginx konfiguracijske datoteke lahko razkrila ranljivosti, bom navedel le del, ki je odgovoren za osebno spletno stran.
+\begin{lstlisting}
+	server{
+		server_name srcnik.si www.srcnik.si
+		location / {
+			root /var/www/srcnik;
+		}
+	}
+\end{lstlisting}
+
+\section{Zaključek}
+\bibliography{main}
+\bibliographystyle{plain}
+\section*{Izjava o avtorstvu}
+
+\end{document}
