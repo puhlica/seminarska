@@ -56,7 +56,7 @@ Sistem je naložen na majhno microSD kartico, za katero upam da jo neprestani ci
 
 \section{Programska oprema}
 \subsection{GNU/Linux}
-GNU/Linux je nadpomenka za več operacijskih sistemov, ki so zasnovani na osnovi Linux jedra, sistemskega programja in knjižnic.
+GNU/Linux je nadpomenka za več operacijskih sistemov, ki so zasnovani na osnovi Linux jedra, sistemskega programja in knjižnic.\cite{linux}
 Večinoma sistemi implementirajo tudi programje GNU projekta, ki ga podpira Free Software Foundation.
 Ta se zavzema za dostopno odprto kodo in copyleft licence.\cite{gnu} 
 \subsection{Rasbian OS}
@@ -68,6 +68,10 @@ Ker strežnik ne bo nikoli priključen v ekran, za grafični namestitveni progra
 
 Debian vsebuje apt upravitelj paketov, zato nalaganje in nameščanje potrebnih programov ne bo velik problem.
 V pomoč sta prav tako že namščena skrbnik prikritih procesov (daemon) systemd in strežnik za oddlajen dostop po protokolu SSH. 
+
+\subsection{HTTP}
+Protokol za prenos hiperteksta (HTTP) je protokol na aplikacijskem nivoju OSI modela.
+Skrbi za komunikacijo med strežnikom in odjemalcem.\cite{HTTP} in je temelj svetovnega spleta (WWW), saj odjemalcu poda večpredstavnostne vsebine, kot so hipertekst, grafika in zvok.  
 
 \subsection{Spletni strežnik}
 Po prijavi sem posodobil strežnik z \verb|sudo apt update && sudo apt upgrade| in namestil Nginx z \verb|sudo apt install nginx|.
@@ -84,7 +88,7 @@ Ker bi celotna vsebina nginx konfiguracijske datoteke lahko razkrila ranljivosti
 	}
 \end{lstlisting}
 Za neprestano delovanje http strežnika poskrbimo z ukazom \verb|sudo systemctl start nginx|.
-Ta zažene prikriti proces, ta pa se bo zagnal tudi po ponovnem zagonu sistema.
+Ta zažene prikriti proces, ki se bo zagnal tudi po ponovnem zagonu sistema.
 
 \section{Zaključek}
 \bibliography{main}
